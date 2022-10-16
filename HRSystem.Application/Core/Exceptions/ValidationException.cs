@@ -1,0 +1,21 @@
+﻿using FluentValidation.Results;
+using HRSystem.Domain.Core;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HRSystem.Application.Core.Exceptions
+{
+    public sealed class ValidationException : Exception
+    {
+        public ValidationException(IEnumerable<ValidationFailure> failures)
+            : base("One or more validation failures has occurred.") =>
+            Errors = failures
+                .Distinct()
+                .Select(failure => new Error(failure.ErrorCode, failure.ErrorMessage))
+                .ToList();
+        public IReadOnlyCollection<Error> Errors { get; }
+    }
+}
