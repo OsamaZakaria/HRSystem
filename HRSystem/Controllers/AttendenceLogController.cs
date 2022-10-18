@@ -1,4 +1,5 @@
 ﻿using HRSystem.Application.Attendence.Command;
+using HRSystem.Application.Attendence.Query.GetAttendenceLog;
 using HRSystem.Application.Core.Models.Attendence;
 using HRSystem.Domain.Core.Errors;
 using HRSystem.Domain.Core.Result;
@@ -22,7 +23,7 @@ namespace HRSystem.Web.Controllers
         {
         }
 
-        [HttpPost]
+        [HttpPost("/Log")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Log(LogAttendence log) =>
@@ -31,6 +32,17 @@ namespace HRSystem.Web.Controllers
          .Bind(command => Mediator.Send(command))
          .Match(Ok, BadRequest);
 
-    
+        [HttpPost("/GetLog")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetById(int page, int pageSize)
+        {
+            var projects = await Mediator.Send(new GetAttendenceLogQuery
+            {
+                PageIndex = page,
+                PageSize = pageSize,
+            });
+            return Ok(projects);
+        }
     }
 }

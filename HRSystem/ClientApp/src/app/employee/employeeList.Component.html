@@ -1,0 +1,44 @@
+<a mat-fab class="floating-fab-button" [routerLink]="['add']">
+    <mat-icon>add</mat-icon>
+  </a>
+
+  <mat-table #table [dataSource]="employeeDataSource" >
+    <ng-container matColumnDef="managerName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Manager Name </mat-header-cell>
+      <mat-cell *matCellDef="let manager"> <a href='/edit/{{manager.id}}'> {{manager.managerName}} </a></mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+      <mat-cell *matCellDef="let manager"> {{manager.email}} </mat-cell>
+    </ng-container>
+    <ng-container aria-colspan="2" matColumnDef="team">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Team members </mat-header-cell>
+      <mat-cell *matCellDef="let manager">
+        <div class="parcels">
+          <ng-container >
+              <table  #innerTables class="table" *ngIf="manager.team?.length > 0">
+                <thead>
+                  <tr>
+                  <th>Employee name</th>
+                  <th>email</th>
+                </tr>
+                </thead>
+                <tr *ngFor="let employee of manager.team">
+                  <td>{{employee.employeeName}}</td>
+                  <td>{{employee.email}}</td>
+                </tr>
+              </table>
+          </ng-container>
+      </div>
+      </mat-cell>
+      
+       
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns">
+    </mat-header-row>
+    <mat-row *matRowDef="let manager; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+  <mat-paginator #paginator [length]="totalCount" [pageIndex]="pageIndex" [pageSize]="maxResultCount" [pageSizeOptions]="pageSizeOptions"
+    (page)="pageChangehandler($event)">
+  </mat-paginator>

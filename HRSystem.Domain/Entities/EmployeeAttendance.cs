@@ -5,14 +5,10 @@ namespace HRSystem.Domain.Entities
 {
     public class EmployeeAttendance : Entity<Guid>
     {
-        private EmployeeAttendance()
-        {
-
-        }
+        private EmployeeAttendance() { }
         private EmployeeAttendance(Guid employeeId, DateTime? timeIn, DateTime? timeOut)
         {
             EmployeeId = employeeId;
-
             TimeIn = timeIn;
             TimeOut = timeOut;
         }

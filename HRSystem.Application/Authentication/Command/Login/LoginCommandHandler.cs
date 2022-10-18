@@ -27,38 +27,42 @@ namespace HRSystem.Application.Authentication.Command.Login
             _dbContext = dbContext;
             _configuration = configuration;
         }
-
-        /// <inheritdoc />
         public async Task<Result<TokenResponse>> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
-            Result<Email> emailResult = Email.Create(request.Email);
-
-            if (emailResult.IsFailure)
+            try
             {
-                return Result.Failure<TokenResponse>(DomainErrors.Authentication.InvalidEmailOrPassword);
+                Result<Email> emailResult = Email.Create(request.Email);
+
+                if (emailResult.IsFailure)
+                {
+                    return Result.Failure<TokenResponse>(DomainErrors.Authentication.InvalidEmailOrPassword);
+                }
+
+                var user = await _dbContext.Users.FirstOrDefaultAsync(e => e.Email == emailResult.Value);
+
+                if (user == null)
+                {
+                    return Result.Failure<TokenResponse>(DomainErrors.Authentication.InvalidEmailOrPassword);
+                }
+
+
+                PasswordHasher<ApplicationUser> passwordHasher = new PasswordHasher<ApplicationUser>();
+
+                var passwordValid = passwordHasher.VerifyHashedPassword(user, user.PasswordHash, request.Password);
+
+                if (passwordValid == PasswordVerificationResult.Failed)
+                {
+                    return Result.Failure<TokenResponse>(DomainErrors.Authentication.InvalidEmailOrPassword);
+                }
+
+                string token = user.CreateToken(_configuration);
+
+                return Result.Success(new TokenResponse(token));
             }
-
-             var user = await _dbContext.Users.FirstOrDefaultAsync(e => e.Email == emailResult.Value);
-
-            if (user == null)
+            catch (Exception ex)
             {
-                return Result.Failure<TokenResponse>(DomainErrors.Authentication.InvalidEmailOrPassword);
+                return Result.Failure<TokenResponse>(new Domain.Core.Error("",ex.Message));
             }
-
-
-            PasswordHasher<ApplicationUser> passwordHasher = new PasswordHasher<ApplicationUser>();
-
-            var passwordValid = passwordHasher.VerifyHashedPassword(user, user.PasswordHash, request.Password);
-
-
-            if (passwordValid == PasswordVerificationResult.Failed)
-            {
-                return Result.Failure<TokenResponse>(DomainErrors.Authentication.InvalidEmailOrPassword);
-            }
-
-            string token = user.CreateToken(_configuration);
-
-            return Result.Success(new TokenResponse(token));
         }
     }
 }

@@ -94,7 +94,7 @@ namespace HRSystem
             }
             app.UseSwagger();
 
-            app.UseSwaggerUI(swaggerUiOptions => swaggerUiOptions.SwaggerEndpoint("/swagger/v1/swagger.json", "EventReminder API"));
+            app.UseSwaggerUI(swaggerUiOptions => swaggerUiOptions.SwaggerEndpoint("/swagger/v1/swagger.json", "HR System API"));
             app.UseRouting();
             app.UseCustomExceptionHandler();
 

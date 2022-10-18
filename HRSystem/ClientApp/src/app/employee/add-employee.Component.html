@@ -1,0 +1,61 @@
+<form #form="ngForm">
+    <div fxLayout="row" fxLayout.lt-sm="column">
+        <div fxFlex>
+            <mat-form-field appearance="fill">
+                <mat-label>Manager</mat-label>
+                <mat-select>
+                  <mat-option *ngFor="let manager of managers" [value]="manager.id">
+                    {{manager.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+        <div fxFlex>
+            <mat-form-field class="form-field-full-width">
+                <input matInput #name="ngModel" id="name" name="name" placeholder="name" [(ngModel)]="employee.name"
+                    required>
+                <mat-error *ngIf="name?.errors?.required">name is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex>
+            <mat-form-field class="form-field-full-width">
+                <input matInput type="email" #email="ngModel" id="email" name="email" placeholder="Email" [(ngModel)]="employee.emailAddress"
+                    required email>
+                <mat-error *ngIf="email?.errors?.required">Email is required</mat-error>
+                <mat-error *ngIf="email.invalid">Invalid Email Address</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-sm="column">
+        <div fxFlex>
+            <mat-form-field class="form-field-full-width">
+                <input matInput #address="ngModel" id="address" name="address" placeholder="address" [(ngModel)]="employee.address"
+                    required>
+                <mat-error *ngIf="address?.errors?.required">address is required</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-sm="column">
+        <div fxFlex>
+            <mat-form-field class="form-field-full-width">
+                <input matInput #mobile="ngModel" id="mobile" name="mobile" placeholder="mobile" [(ngModel)]="employee.mobile"
+                    required>
+                <mat-error *ngIf="mobile?.errors?.required">mobile is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex>
+            <mat-form-field appearance="fill">
+                <mat-label>BirthDate</mat-label>
+                <input  #birthDate="ngModel" matInput [matDatepicker]="picker" [(ngModel)]="employee.birthDate">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end center">
+        <button (click)="creatNewEmployee()" class="send" mat-raised-button color="primary">
+            Submit
+        </button>
+    </div>
+</form>

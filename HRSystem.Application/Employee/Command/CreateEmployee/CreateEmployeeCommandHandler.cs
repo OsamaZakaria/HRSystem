@@ -13,9 +13,12 @@ namespace HRSystem.Application.Employee.Command
     public sealed class CreateEmployeeCommandHandler : ICommandHandler<CreateEmployeeCommand, Result>
     {
         private readonly ApplicationDbContext _dbContext;
-        public CreateEmployeeCommandHandler(ApplicationDbContext dbContext)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public CreateEmployeeCommandHandler(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager)
         {
             _dbContext = dbContext;
+            _userManager = userManager;
         }
         public async Task<Result> Handle(CreateEmployeeCommand request, CancellationToken cancellationToken)
         {
@@ -38,11 +41,11 @@ namespace HRSystem.Application.Employee.Command
             };
             PasswordHasher<ApplicationUser> passwordHasher = new PasswordHasher<ApplicationUser>();
             //Generate Random password after implement EmailService
-            passwordHasher.HashPassword(user, "new@123");
+            user.PasswordHash = passwordHasher.HashPassword(user, "new@123");
 
             var employee = HRSystem.Domain.Entities.Employee.Create(name: request.Employee.Name,
                                                                     address: request.Employee.Address,
-                                                                    email: request.Employee.Address,
+                                                                    email: request.Employee.Email,
                                                                     birthDate: request.Employee.BirthDate,
                                                                     mobile: request.Employee.Mobile,
                                                                     managerId: request.Employee.ManagerId,

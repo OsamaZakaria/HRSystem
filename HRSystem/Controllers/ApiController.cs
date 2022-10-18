@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HRSystem.Web.Controllers
 {
-    [Route("api")]
+    [Route("api/[Controller]")]
+    [ApiController]
     public class ApiController : ControllerBase
     {
         public ApiController(IMediator mediator) => Mediator = mediator;
