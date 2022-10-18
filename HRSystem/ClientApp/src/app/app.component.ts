@@ -30,14 +30,18 @@ export class AppComponent {
     }
     logAttendanceAction()
     {
+        if(confirm("Are you sure to " + this.logAction)) {
         if(this.currentUser.isEmployee)
         {
-          this.employee.employeeId =this.currentUser.employeeId;
-           this.attendance.Log(this.employee)
-           this.attendance.Log(this.employee).subscribe(result => {
+           debugger;
+           this.employee = new AttendanceLog();
+            this.employee.employeeId =this.currentUser.employeeId;
+            this.attendance.Log(this.employee).subscribe(result => {
             this.getLastAction();
+            alert("Success")
           })
         }
+    }
     }
     logout() {
         this.authenticationService.logout();

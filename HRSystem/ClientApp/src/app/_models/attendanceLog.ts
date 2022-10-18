@@ -1,4 +1,4 @@
 export class AttendanceLog
 {
-    employeeId:string
+    employeeId:string;
 }
