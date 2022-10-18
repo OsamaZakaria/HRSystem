@@ -20,7 +20,7 @@ namespace HRSystem.Application.Attendence.Query.GetLastAttendanceAction
         public async Task<string> Handle(GetLastAttendanceActionQuery request, CancellationToken cancellationToken)
         {
             var log = await _dbContext.EmployeeAttendance.OrderByDescending(a => a.TimeIn).FirstOrDefaultAsync(a => a.TimeIn.Value.Date == DateTime.Now.Date && a.EmployeeId == request.EmployeeId);
-            if (log == null || log.TimeOut.HasValue)
+            if (log == null || !log.TimeOut.HasValue)
                 return "Check-Out";
 
             return "Check-In";

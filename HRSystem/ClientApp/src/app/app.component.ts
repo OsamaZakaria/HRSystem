@@ -20,12 +20,22 @@ export class AppComponent {
         private attendance: AttendanceService
     ) {
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-        this.logAction = 'Check-In'
+        this.getLastAction();
     }
     getLastAction()
     {
+        debugger
         this.attendance.getLastAction(this.currentUser.employeeId).subscribe((result) => {
-            this.logAction =result;
+            console.log(result)
+            this.logAction = result;
+        },
+        error => {
+          debugger
+          console.log(error);
+        },
+        () => {
+          // 'onCompleted' callback.
+          // No errors, route to new page here
         });
     }
     logAttendanceAction()

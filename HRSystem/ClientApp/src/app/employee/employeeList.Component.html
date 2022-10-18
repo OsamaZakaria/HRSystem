@@ -1,7 +1,7 @@
 <a mat-fab class="floating-fab-button" [routerLink]="['add']">
     <mat-icon>add</mat-icon>
   </a>
-
+  <div class="card mt-4">
   <mat-table #table [dataSource]="employeeDataSource" >
     <ng-container matColumnDef="managerName">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Manager Name </mat-header-cell>
@@ -45,3 +45,4 @@
   <mat-paginator #paginator [length]="totalCount" [pageIndex]="pageIndex" [pageSize]="maxResultCount" [pageSizeOptions]="pageSizeOptions"
     (page)="pageChangehandler($event)">
   </mat-paginator>
+  </div>

@@ -18,7 +18,6 @@ using System.Threading.Tasks;
 
 namespace HRSystem.Web.Controllers
 {
-    [Authorize]
     public class AttendenceLogController : HRSystem.Web.Controllers.ApiController
     {
         public AttendenceLogController(IMediator mediator)
@@ -40,12 +39,12 @@ namespace HRSystem.Web.Controllers
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetLog(int page, int pageSize)
         {
-            var projects = await Mediator.Send(new GetAttendenceLogQuery
+            var logs = await Mediator.Send(new GetAttendenceLogQuery
             {
                 PageIndex = page,
                 PageSize = pageSize,
             });
-            return Ok(projects);
+            return Ok(logs);
         }
 
         [HttpGet("/getLastAction")]
@@ -57,7 +56,7 @@ namespace HRSystem.Web.Controllers
             {
                 EmployeeId = employeeId
             });
-            return Ok(projects);
+            return await Task.FromResult( Ok(projects));
         }
     }
 }
