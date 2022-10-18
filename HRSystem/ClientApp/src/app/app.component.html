@@ -3,7 +3,10 @@
     <div class="navbar-nav">
         <a class="nav-item nav-link" routerLink="/">Home</a>
         <a class="nav-item nav-link" routerLink="/employee">Employees</a>
+        <a class="nav-item nav-link" routerLink="/attendance">Attendance</a>
+        <a class="nav-item nav-link" *ng-if="currentUser.isEmployee" routerLink="/employee">{{logAction}}</a>
         <a class="nav-item nav-link" (click)="logout()">Logout</a>
+
     </div>
 </nav>
 

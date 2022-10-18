@@ -17,8 +17,11 @@ export class AttendanceService {
     getAll(page:number,pageSize:number) {
         return this.http.get<AttendancePagedList>(`${environment.apiUrl}/GetLog?page=${page}&pageSize=${pageSize}`);
     }
-
+    getLastAction(employeeId:string) {
+        return this.http.get<string>(`${environment.apiUrl}/getLastAction?employeeId=${employeeId}`);
+    }
     Log(attendanceLog: AttendanceLog): Observable<Object>{
         return this.http.post(`${environment.apiUrl}/Log`, attendanceLog, { responseType: 'text' });
     }
+
 }

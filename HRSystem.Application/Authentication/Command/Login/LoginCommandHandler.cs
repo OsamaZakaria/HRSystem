@@ -57,7 +57,10 @@ namespace HRSystem.Application.Authentication.Command.Login
 
                 string token = user.CreateToken(_configuration);
                 var isEmpoyee = _dbContext.Employees.Any(e => e.UserId == user.Id);
-                return Result.Success(new TokenResponse(token, user.UserName, isEmpoyee));
+                string employeeId = string.Empty;
+                if(isEmpoyee)
+                    employeeId = _dbContext.Employees.FirstOrDefault(e => e.UserId == user.Id).Id.ToString();
+                return Result.Success(new TokenResponse(token, user.UserName, isEmpoyee, employeeId));
             }
             catch (Exception ex)
             {

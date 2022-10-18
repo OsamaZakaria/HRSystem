@@ -6,9 +6,9 @@
         /// Initializes a new instance of the <see cref="TokenResponse"/> class.
         /// </summary>
         /// <param name="token">The token value.</param>
-        public TokenResponse(string token, string name, bool isEmployee)
+        public TokenResponse(string token, string name, bool isEmployee,string employeeId)
         {
-            Token = token; IsEmployee = isEmployee; Name = name;
+            Token = token; IsEmployee = isEmployee; Name = name; EmployeeId = employeeId;
         }
 
         /// <summary>
@@ -17,5 +17,6 @@
         public string Token { get; }
         public bool IsEmployee { get; }
         public string Name { get; }
+        public string EmployeeId { get; }
     }
 }

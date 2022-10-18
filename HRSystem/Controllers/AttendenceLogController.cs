@@ -1,5 +1,6 @@
 ﻿using HRSystem.Application.Attendence.Command;
 using HRSystem.Application.Attendence.Query.GetAttendenceLog;
+using HRSystem.Application.Attendence.Query.GetLastAttendanceAction;
 using HRSystem.Application.Core.Models.Attendence;
 using HRSystem.Domain.Core.Errors;
 using HRSystem.Domain.Core.Result;
@@ -39,11 +40,22 @@ namespace HRSystem.Web.Controllers
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetLog(int page, int pageSize)
         {
-            var test = User;
             var projects = await Mediator.Send(new GetAttendenceLogQuery
             {
                 PageIndex = page,
                 PageSize = pageSize,
+            });
+            return Ok(projects);
+        }
+
+        [HttpGet("/getLastAction")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> getLastAction(Guid employeeId)
+        {
+            var projects = await Mediator.Send(new GetLastAttendanceActionQuery()
+            {
+                EmployeeId = employeeId
             });
             return Ok(projects);
         }
