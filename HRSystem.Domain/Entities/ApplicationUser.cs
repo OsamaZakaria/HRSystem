@@ -31,7 +31,7 @@ namespace HRSystem.Domain.Entities
 
             var token = new JwtSecurityToken(
                configuration["Jwt:Issuer"],
-                configuration["Jwt:linkDev.com"],
+                configuration["Jwt:Audience"],
                 claims,
                 null,
                 tokenExpirationTime,

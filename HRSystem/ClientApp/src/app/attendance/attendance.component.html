@@ -1,0 +1,22 @@
+
+  <mat-table #table [dataSource]="attendanceDataSource" >
+    <ng-container matColumnDef="employeeName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Employee name </mat-header-cell>
+      <mat-cell *matCellDef="let employe"> {{employe.name}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="logDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> log Date </mat-header-cell>
+      <mat-cell *matCellDef="let employe"> {{employe.logDate | date: 'mediumDate'}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="totalWorkingHours">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Total Working Hours </mat-header-cell>
+        <mat-cell *matCellDef="let employe"> {{employe.totalWorkingHours.hours}}:{{employe.totalWorkingHours.minutes}}:{{employe.totalWorkingHours.seconds}} </mat-cell>
+      </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns">
+    </mat-header-row>
+    <mat-row *matRowDef="let employe; columns: displayedColumns;"  [ngClass]="{'make-hasViolation': employe.hasViolation }">
+    </mat-row>
+  </mat-table>
+  <mat-paginator #paginator [length]="totalCount" [pageIndex]="pageIndex" [pageSize]="maxResultCount" [pageSizeOptions]="pageSizeOptions"
+    (page)="pageChangehandler($event)">
+  </mat-paginator>

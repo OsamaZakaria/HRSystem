@@ -5,16 +5,12 @@ using HRSystem.Data;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System;
 
 namespace HRSystem.Application.Employee.Query
 {
-    public class GetEmployeesQueryHandler : IQueryHandler<GetEmployeesQuery, PagedList<GetEmployeesResponse>>
+    public sealed class GetEmployeesQueryHandler : IQueryHandler<GetEmployeesQuery, PagedList<GetEmployeesResponse>>
     {
         private readonly ApplicationDbContext _dbContext;
         public GetEmployeesQueryHandler(ApplicationDbContext dbContext)

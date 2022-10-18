@@ -24,7 +24,7 @@ namespace HRSystem.Web.Controllers
         [HttpPost("/UpdateEmployee")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Update(UpdateEmployeeRequest updateEmployeeRequest)
+        public async Task<IActionResult> UpdateEmployee(UpdateEmployeeRequest updateEmployeeRequest)
         {
 
             return await Result.Create(updateEmployeeRequest, DomainErrors.General.UnProcessableRequest)
@@ -36,7 +36,7 @@ namespace HRSystem.Web.Controllers
         [HttpPost("/CreateEmployee")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Create(CreateEmployeeRequest createEmployeeRequest) =>
+        public async Task<IActionResult> CreateEmployee(CreateEmployeeRequest createEmployeeRequest) =>
          await Result.Create(createEmployeeRequest, DomainErrors.General.UnProcessableRequest)
            .Map(request => new CreateEmployeeCommand() { Employee = createEmployeeRequest })
            .Bind(command => Mediator.Send(command))
@@ -66,6 +66,17 @@ namespace HRSystem.Web.Controllers
                 CurrentId = currentEmployeeId?? Guid.Empty
             });
             return Ok(managers);
+        }
+        [HttpGet("/GetEmployeeById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetEmployeeById(Guid id)
+        {
+            var employee = await Mediator.Send(new GetEmployeeByIdQuery
+            {
+                Id = id
+            });
+            return Ok(employee);
         }
     }
 

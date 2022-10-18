@@ -5,6 +5,7 @@ using HRSystem.Domain.Core.Errors;
 using HRSystem.Domain.Core.Result;
 using HRSystem.Web.Contracts;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -16,6 +17,7 @@ using System.Threading.Tasks;
 
 namespace HRSystem.Web.Controllers
 {
+    [Authorize]
     public class AttendenceLogController : HRSystem.Web.Controllers.ApiController
     {
         public AttendenceLogController(IMediator mediator)
@@ -32,11 +34,12 @@ namespace HRSystem.Web.Controllers
          .Bind(command => Mediator.Send(command))
          .Match(Ok, BadRequest);
 
-        [HttpPost("/GetLog")]
+        [HttpGet("/GetLog")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetById(int page, int pageSize)
+        public async Task<IActionResult> GetLog(int page, int pageSize)
         {
+            var test = User;
             var projects = await Mediator.Send(new GetAttendenceLogQuery
             {
                 PageIndex = page,

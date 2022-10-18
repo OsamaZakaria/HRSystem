@@ -13,7 +13,7 @@
         <div fxFlex>
             <mat-form-field appearance="fill">
                 <mat-label>Department</mat-label>
-                <mat-select [(ngModel)]="employee.departmentId"   name="department" required>
+                <mat-select [(ngModel)]="employee.departmentId" name="department" required>
                   <mat-option *ngFor="let department of departments"  [value]="department.id">
                     {{department.name}}
                   </mat-option>
@@ -25,14 +25,6 @@
                 <input matInput #name="ngModel" id="name" name="name" placeholder="name" [(ngModel)]="employee.name"
                     required>
                 <mat-error *ngIf="name?.errors?.required">name is required</mat-error>
-            </mat-form-field>
-        </div>
-        <div fxFlex>
-            <mat-form-field class="form-field-full-width">
-                <input matInput type="email" #email="ngModel" id="email" name="email" placeholder="Email" [(ngModel)]="employee.email"
-                    required email>
-                <mat-error *ngIf="email?.errors?.required">Email is required</mat-error>
-                <mat-error *ngIf="email.invalid">Invalid Email Address</mat-error>
             </mat-form-field>
         </div>
     </div>
@@ -65,7 +57,7 @@
         </div>
     </div>
     <div fxLayout="row" fxLayoutAlign="end center">
-        <button [disabled]="!(form.valid && form.dirty)" (click)="creatNewEmployee()" class="send" mat-raised-button color="primary">
+        <button  [disabled]="!(form.valid)" (click)="updateEmployee()" class="send" mat-raised-button color="primary">
             Submit
         </button>
     </div>

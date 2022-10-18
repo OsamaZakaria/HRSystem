@@ -4,6 +4,7 @@ using HRSystem.Domain.Core.Result;
 using HRSystem.Domain.Core.ValueObjects;
 using HRSystem.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -46,7 +47,7 @@ namespace HRSystem.Application.Employee.Command
             var employee = HRSystem.Domain.Entities.Employee.Create(name: request.Employee.Name,
                                                                     address: request.Employee.Address,
                                                                     email: request.Employee.Email,
-                                                                    birthDate: request.Employee.BirthDate,
+                                                                    birthDate: DateTime.Parse(request.Employee.BirthDate),
                                                                     mobile: request.Employee.Mobile,
                                                                     managerId: request.Employee.ManagerId,
                                                                     user: user,

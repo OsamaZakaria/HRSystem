@@ -5,7 +5,9 @@
   <mat-table #table [dataSource]="employeeDataSource" >
     <ng-container matColumnDef="managerName">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Manager Name </mat-header-cell>
-      <mat-cell *matCellDef="let manager"> <a href='/edit/{{manager.id}}'> {{manager.managerName}} </a></mat-cell>
+      <mat-cell *matCellDef="let manager"><a  [routerLink]="['edit',manager.id]">
+         {{manager.managerName}}</a>
+      </mat-cell>
     </ng-container>
     <ng-container matColumnDef="email">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
@@ -24,7 +26,8 @@
                 </tr>
                 </thead>
                 <tr *ngFor="let employee of manager.team">
-                  <td>{{employee.employeeName}}</td>
+                  <td><a  [routerLink]="['edit',employee.id]">
+                    {{employee.employeeName}}</a></td>
                   <td>{{employee.email}}</td>
                 </tr>
               </table>

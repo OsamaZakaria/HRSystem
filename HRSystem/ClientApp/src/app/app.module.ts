@@ -5,8 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-// used to create fake backend
-import { fakeBackendProvider } from './_helpers';
 
 import { AppComponent } from './app.component';
 import { appRoutingModule } from './app.routing';
@@ -19,6 +17,8 @@ import { MatFormFieldModule, MatInputModule, MatTableModule, MatPaginatorModule,
      MatButtonModule,MatIconModule, MatSnackBarModule, 
      MatDatepickerModule, MatNativeDateModule, MatOptionModule ,MatSelectModule } from '@angular/material';
 import { AddEmployeeComponent } from './employee/add-employee.Component';
+import { EditEmployeeComponent } from './employee/edit-employee.component';
+import { AttendanceComponent } from './attendance/attendance.component';
 
 @NgModule({
     imports: [
@@ -44,14 +44,13 @@ import { AddEmployeeComponent } from './employee/add-employee.Component';
         AppComponent,
         HomeComponent,
         LoginComponent,
-        EmployeeListComponent,AddEmployeeComponent
+        EmployeeListComponent,AddEmployeeComponent,EditEmployeeComponent,AttendanceComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
-        // provider used to create fake backend
-        fakeBackendProvider
+
     ],
     bootstrap: [AppComponent]
 })
