@@ -1,25 +1,10 @@
+<div class="alert alert-info">
+    Default Username for new user : new Employee's Email<br />
+    Password: new@123
+</div>
 <form #form="ngForm">
-    <div fxLayout="row" fxLayout.lt-sm="column">
-        <div fxFlex>
-            <mat-form-field appearance="fill">
-                <mat-label>Manager</mat-label>
-                <mat-select [(ngModel)]="employee.managerId"  #managerId="ngModel" name="managerId">
-                  <mat-option *ngFor="let manager of managers" [value]="manager.id">
-                    {{manager.name}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-        </div>
-        <div fxFlex>
-            <mat-form-field appearance="fill">
-                <mat-label>Department</mat-label>
-                <mat-select [(ngModel)]="employee.departmentId"   name="department" required>
-                  <mat-option *ngFor="let department of departments"  [value]="department.id">
-                    {{department.name}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-        </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+
         <div fxFlex>
             <mat-form-field class="form-field-full-width">
                 <input matInput #name="ngModel" id="name" name="name" placeholder="name" [(ngModel)]="employee.name"
@@ -52,6 +37,26 @@
                     required>
                 <mat-error *ngIf="mobile?.errors?.required">mobile is required</mat-error>
             </mat-form-field>
+        </div>
+        <div fxFlex>
+            <mat-form-field appearance="fill">
+                <mat-label>Manager</mat-label>
+                <mat-select [(ngModel)]="employee.managerId"  #managerId="ngModel" name="managerId">
+                  <mat-option *ngFor="let manager of managers" [value]="manager.id">
+                    {{manager.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+        <div fxFlex>
+            <mat-form-field appearance="fill">
+                <mat-label>Department</mat-label>
+                <mat-select [(ngModel)]="employee.departmentId"   name="department" required>
+                  <mat-option *ngFor="let department of departments"  [value]="department.id">
+                    {{department.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
         </div>
         <div fxFlex>
             <mat-form-field  appearance="fill">
