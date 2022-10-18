@@ -58,7 +58,7 @@ namespace HRSystem.Data
             ApplicationUser user = new ApplicationUser()
             {
                 Id = Guid.Parse("b74ddd14-6340-4840-95c2-db12554843e5"),
-                UserName = "Admin",
+                UserName = "admin@hr.com",
                 Email = "admin@hr.com",
                 LockoutEnabled = false,
                 PhoneNumber = "1234567890",
@@ -67,7 +67,7 @@ namespace HRSystem.Data
 
             PasswordHasher<ApplicationUser> passwordHasher = new PasswordHasher<ApplicationUser>();
             passwordHasher.HashPassword(user, "Admin@123");
-
+            user.PasswordHash = passwordHasher.HashPassword(user, "Admin@123");
             builder.Entity<ApplicationUser>().HasData(user);
         }
 

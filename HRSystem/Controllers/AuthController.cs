@@ -25,10 +25,13 @@ namespace HRSystem.Web.Controllers
         [HttpPost("/Login")]
         [ProducesResponseType(typeof(TokenResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Login(LoginRequest loginRequest) =>
-       await Result.Create(loginRequest, DomainErrors.General.UnProcessableRequest)
-       .Map(request => new LoginCommand(request.Email, request.Password))
-       .Bind(command => Mediator.Send(command))
-       .Match(Ok, BadRequest);
+        public async Task<IActionResult> Login(LoginRequest loginRequest)
+        {
+            var res = await Result.Create(loginRequest, DomainErrors.General.UnProcessableRequest)
+            .Map(request => new LoginCommand(request.Email, request.Password))
+            .Bind(command => Mediator.Send(command))
+            .Match(Ok, BadRequest);
+            return res;
+        }
     }
 }
