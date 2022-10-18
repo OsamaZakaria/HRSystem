@@ -3,53 +3,56 @@
     Password: new@123
 </div>
 <div class="card mt-4">
-<form #form="ngForm">
-    <div fxLayout="row" fxLayout.lt-md="column">
 
-        <div fxFlex>
-            <mat-form-field class="form-field-full-width">
-                <input matInput #name="ngModel" id="name" name="name" placeholder="name" [(ngModel)]="employee.name"
-                    required>
-                <mat-error *ngIf="name?.errors?.required">name is required</mat-error>
-            </mat-form-field>
-        </div>
-        <div fxFlex>
-            <mat-form-field class="form-field-full-width">
-                <input matInput type="email" #email="ngModel" id="email" name="email" placeholder="Email" [(ngModel)]="employee.email"
-                    required email>
-                <mat-error *ngIf="email?.errors?.required">Email is required</mat-error>
-                <mat-error *ngIf="email.invalid">Invalid Email Address</mat-error>
-            </mat-form-field>
-        </div>
-    </div>
-    <div fxLayout="row" fxLayout.lt-sm="column">
-        <div fxFlex>
+<div class="container">
+    <form #form="ngForm">
+      <ul class="flex-outer">
+        <li>
+          <label for="first-name">Name</label>
+          <mat-form-field class="form-field-full-width">
+            <input matInput #name="ngModel" id="name" name="name" placeholder="name" [(ngModel)]="employee.name"
+                required>
+            <mat-error *ngIf="name?.errors?.required">name is required</mat-error>
+        </mat-form-field>
+        </li>
+        <li>
+          <label for="last-name">Email</label>
+          <mat-form-field class="form-field-full-width">
+            <input matInput type="email" #email="ngModel" id="email" name="email" placeholder="Email" [(ngModel)]="employee.email"
+                required email>
+            <mat-error *ngIf="email?.errors?.required">Email is required</mat-error>
+            <mat-error *ngIf="email.invalid">Invalid Email Address</mat-error>
+        </mat-form-field>
+        </li>
+        <li>
+          <label for="address">Address</label>
             <mat-form-field class="form-field-full-width">
                 <input matInput #address="ngModel" id="address" name="address" placeholder="address" [(ngModel)]="employee.address"
                     required>
                 <mat-error *ngIf="address?.errors?.required">address is required</mat-error>
             </mat-form-field>
-        </div>
-    </div>
-    <div fxLayout="row" fxLayout.lt-sm="column">
-        <div fxFlex>
-            <mat-form-field class="form-field-full-width">
-                <input matInput #mobile="ngModel" id="mobile" name="mobile" placeholder="mobile" [(ngModel)]="employee.mobile"
-                    required>
-                <mat-error *ngIf="mobile?.errors?.required">mobile is required</mat-error>
-            </mat-form-field>
-        </div>
-        <div fxFlex>
-            <mat-form-field appearance="fill">
-                <mat-label>Manager</mat-label>
-                <mat-select [(ngModel)]="employee.managerId"  #managerId="ngModel" name="managerId">
-                  <mat-option *ngFor="let manager of managers" [value]="manager.id">
-                    {{manager.name}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-        </div>
-        <div fxFlex>
+        </li>
+        <li>
+          <label for="mobile">Mobile</label>
+          <mat-form-field class="form-field-full-width">
+            <input matInput #mobile="ngModel" id="mobile" name="mobile" placeholder="mobile" [(ngModel)]="employee.mobile"
+                required>
+            <mat-error *ngIf="mobile?.errors?.required">mobile is required</mat-error>
+        </mat-form-field>
+        </li>
+        <li>
+          <label for="Manager">Manager</label>
+          <mat-form-field appearance="fill">
+            <mat-label>Manager</mat-label>
+            <mat-select [(ngModel)]="employee.managerId"  #managerId="ngModel" name="managerId">
+              <mat-option *ngFor="let manager of managers" [value]="manager.id">
+                {{manager.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </li>
+        <li>
+            <label for="Department">Department</label>
             <mat-form-field appearance="fill">
                 <mat-label>Department</mat-label>
                 <mat-select [(ngModel)]="employee.departmentId"   name="department" required>
@@ -58,8 +61,9 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-        </div>
-        <div fxFlex>
+          </li>
+          <li>
+            <label for="BirthDate">BirthDate</label>
             <mat-form-field  appearance="fill">
                 <mat-label>BirthDate</mat-label>
                 <input #birthDate="ngModel" required [(ngModel)]="employee.birthDate" name="birthDate"   matInput [matDatepicker]="birthDate">
@@ -68,12 +72,105 @@
                 <mat-datepicker #birthDate></mat-datepicker>
                 <mat-error *ngIf="birthDate?.errors?.required">birthDate is required</mat-error>
               </mat-form-field>
-        </div>
+          </li>
+          <li>
+                <button [disabled]="!(form.valid && form.dirty)" (click)="creatNewEmployee()" class="send" mat-raised-button color="primary">
+                    Submit
+                </button>
+          </li>
+        </ul>
+        
+      </form>
     </div>
-    <div fxLayout="row" fxLayoutAlign="end center">
-        <button [disabled]="!(form.valid && form.dirty)" (click)="creatNewEmployee()" class="send" mat-raised-button color="primary">
-            Submit
-        </button>
-    </div>
-</form>
 </div>
+
+<style>
+    body {
+  font: normal 18px/1.5 "Fira Sans", "Helvetica Neue", sans-serif;
+  background: #3AAFAB;
+  color: #fff;
+  padding: 50px 0;
+}
+
+.container {
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.container * {
+  box-sizing: border-box;
+}
+
+.flex-outer,
+.flex-inner {
+  list-style-type: none;
+  padding: 0;
+}
+
+.flex-outer {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.flex-outer li,
+.flex-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.flex-inner {
+  padding: 0 8px;
+  justify-content: space-between;  
+}
+
+.flex-outer > li:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.flex-outer li label,
+.flex-outer li p {
+  padding: 8px;
+  font-weight: 300;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.flex-outer > li > label,
+.flex-outer li p {
+  flex: 1 0 120px;
+  max-width: 220px;
+}
+
+.flex-outer > li > label + *,
+.flex-inner {
+  flex: 1 0 220px;
+}
+
+.flex-outer li p {
+  margin: 0;
+}
+
+.flex-outer li input:not([type='checkbox']),
+.flex-outer li textarea {
+  padding: 15px;
+  border: none;
+}
+
+.flex-outer li button {
+  margin-left: auto;
+  padding: 8px 16px;
+  border: none;
+  background: #333;
+  color: #f2f2f2;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  border-radius: 2px;
+}
+
+.flex-inner li {
+  width: 100px;
+}
+
+</style>

@@ -1,19 +1,19 @@
-﻿import { Component, ViewChild } from '@angular/core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 
 import { AuthenticationService } from './_services';
 import { User } from './_models';
-import { AttendanceService } from './_services/attendence.service';
+import { AttendanceService } from './_services/attendance.service';
 import { AttendanceLog } from './_models/attendanceLog';
 import { GetLastAttendanceActionResponse } from './_models/getLastAttendanceActionResponse';
 
 
 @Component({ selector: 'app', templateUrl: 'app.component.html' })
-export class AppComponent {
+export class AppComponent implements OnInit {
     currentUser: User;
     employee:AttendanceLog;
-    public logAction:GetLastAttendanceActionResponse;
+    logAction:GetLastAttendanceActionResponse;
 
     constructor(
         private router: Router,
@@ -21,6 +21,9 @@ export class AppComponent {
         private attendance: AttendanceService
     ) {
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+
+    }
+    ngOnInit(): void {
         this.getLastAction();
     }
     getLastAction()
@@ -34,8 +37,6 @@ export class AppComponent {
           console.log(error);
         },
         () => {
-          // 'onCompleted' callback.
-          // No errors, route to new page here
         });
     }
     logAttendanceAction()
@@ -43,7 +44,6 @@ export class AppComponent {
         if(confirm("Are you sure to " + this.logAction.action)) {
         if(this.currentUser.isEmployee)
         {
-           debugger;
            this.employee = new AttendanceLog();
             this.employee.employeeId =this.currentUser.employeeId;
             this.attendance.Log(this.employee).subscribe(result => {

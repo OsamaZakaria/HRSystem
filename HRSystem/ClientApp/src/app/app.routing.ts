@@ -13,7 +13,7 @@ const routes: Routes = [
     { path: 'employee', component: EmployeeListComponent, canActivate: [AuthGuard] },
     { path: 'employee/add', component: AddEmployeeComponent, canActivate: [AuthGuard] },
     { path: 'employee/edit/:id', component: EditEmployeeComponent, canActivate: [AuthGuard] },
-    { path: 'attendence', component: AttendanceComponent, canActivate: [AuthGuard] },
+    { path: 'attendance', component: AttendanceComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
 
     // otherwise redirect to home

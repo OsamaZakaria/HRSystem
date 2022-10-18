@@ -1,7 +1,7 @@
 import {Component, Injector, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource, PageEvent, Sort} from '@angular/material';
 import { SimpleDataSource } from '@app/_helpers/SimpleDataSource';
-import { AttendanceService } from '@app/_services/attendence.service';
+import { AttendanceService } from '@app/_services/attendance.service';
 import { EmployeeService } from '@app/_services/employee.service';
 
 

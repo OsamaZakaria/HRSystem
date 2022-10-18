@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CreateEmployee } from '@app/_models/CreateEmployee';
 import { Department } from '@app/_models/department';
+import { ServerErrors } from '@app/_models/error';
 import { Manager } from '@app/_models/manager';
 import { DepartmentService } from '@app/_services/department.service';
 import { EmployeeService } from '@app/_services/employee.service';
@@ -16,6 +17,7 @@ export class AddEmployeeComponent implements OnInit{
   public employee = new CreateEmployee();
   public managers:Manager[];
   public departments:Department[];
+  errors: ServerErrors;
   constructor(injector: Injector, private employeeService: EmployeeService, private departmentService: DepartmentService,
     private snackBar:MatSnackBar, private router:Router,
     private activatedRoute:ActivatedRoute) {
@@ -45,12 +47,18 @@ export class AddEmployeeComponent implements OnInit{
         this.router.navigate(['../'], { relativeTo: this.activatedRoute });
       },
       error => {
-        debugger
-        console.log(error);
+        console.log(error)
+        this.errors = JSON.parse(error)
+        if(this.errors)
+        {
+          for (let i = 0; i < this.errors.errors.length; i++) {
+            this.snackBar.open(this.errors.errors[i].message, null, {
+              duration: 2000
+            });
+          }
+        }
       },
       () => {
-        // 'onCompleted' callback.
-        // No errors, route to new page here
       }
       )
 

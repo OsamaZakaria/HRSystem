@@ -27,10 +27,11 @@ namespace HRSystem.Web.Controllers
         public async Task<IActionResult> UpdateEmployee(UpdateEmployeeRequest updateEmployeeRequest)
         {
 
-            return await Result.Create(updateEmployeeRequest, DomainErrors.General.UnProcessableRequest)
+            var result = await Result.Create(updateEmployeeRequest, DomainErrors.General.UnProcessableRequest)
                 .Map(request => new UpdateEmployeeCommand() { Employee = updateEmployeeRequest })
                 .Bind(command => Mediator.Send(command))
                 .Match(Ok, BadRequest);
+            return result;
         }
 
         [HttpPost("/CreateEmployee")]

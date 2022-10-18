@@ -1,12 +1,15 @@
 ﻿<!-- nav -->
 <nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
-    <div class="navbar-nav">
+    <div class="navbar-nav" style="width: 50% !important;">
         <a class="nav-item nav-link" routerLink="/">Home</a>
         <a class="nav-item nav-link" routerLink="/employee">Employees</a>
         <a class="nav-item nav-link" routerLink="/attendance">Attendance</a>
-        <a class="nav-item nav-link" *ngIf="currentUser.isEmployee" (click)="logAttendanceAction()">{{logAction.action}}</a>
+        <a class="nav-item nav-link" *ngIf="currentUser.isEmployee" (click)="logAttendanceAction()">{{logAction?.action}}</a>
         <a class="nav-item nav-link" (click)="logout()">Logout</a>
-
+       
+    </div>
+    <div class="navbar-user" style="width: 50% !important;text-align: right; color: white;">
+        <a class="">Hello!, {{currentUser.name}}</a>
     </div>
 </nav>
 
