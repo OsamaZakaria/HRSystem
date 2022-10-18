@@ -4,7 +4,7 @@
         <a class="nav-item nav-link" routerLink="/">Home</a>
         <a class="nav-item nav-link" routerLink="/employee">Employees</a>
         <a class="nav-item nav-link" routerLink="/attendance">Attendance</a>
-        <a class="nav-item nav-link" *ngIf="currentUser.isEmployee" (click)="logAttendanceAction()">{{logAction}}</a>
+        <a class="nav-item nav-link" *ngIf="currentUser.isEmployee" (click)="logAttendanceAction()">{{logAction.action}}</a>
         <a class="nav-item nav-link" (click)="logout()">Logout</a>
 
     </div>

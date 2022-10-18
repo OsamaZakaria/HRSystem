@@ -8,6 +8,7 @@ import { Manager } from '@app/_models/manager';
 import { EmployeeById } from '@app/_models/employeeById';
 import { AttendancePagedList } from '@app/_models/attendanceList';
 import { AttendanceLog } from '@app/_models/attendanceLog';
+import { GetLastAttendanceActionResponse } from '@app/_models/getLastAttendanceActionResponse';
 
 
 @Injectable({ providedIn: 'root' })
@@ -18,7 +19,7 @@ export class AttendanceService {
         return this.http.get<AttendancePagedList>(`${environment.apiUrl}/GetLog?page=${page}&pageSize=${pageSize}`);
     }
     getLastAction(employeeId:string) {
-        return this.http.get<any>(`${environment.apiUrl}/getLastAction?employeeId=${employeeId}`);
+        return this.http.get<GetLastAttendanceActionResponse>(`${environment.apiUrl}/getLastAction?employeeId=${employeeId}`);
     }
     Log(attendanceLog: AttendanceLog): Observable<Object>{
         return this.http.post(`${environment.apiUrl}/Log`, attendanceLog, { responseType: 'text' });

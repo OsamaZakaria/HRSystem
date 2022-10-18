@@ -6,13 +6,14 @@ import { AuthenticationService } from './_services';
 import { User } from './_models';
 import { AttendanceService } from './_services/attendence.service';
 import { AttendanceLog } from './_models/attendanceLog';
+import { GetLastAttendanceActionResponse } from './_models/getLastAttendanceActionResponse';
 
 
 @Component({ selector: 'app', templateUrl: 'app.component.html' })
 export class AppComponent {
     currentUser: User;
     employee:AttendanceLog;
-    public logAction:string;
+    public logAction:GetLastAttendanceActionResponse;
 
     constructor(
         private router: Router,
@@ -24,7 +25,6 @@ export class AppComponent {
     }
     getLastAction()
     {
-        debugger
         this.attendance.getLastAction(this.currentUser.employeeId).subscribe((result) => {
             console.log(result)
             this.logAction = result;
@@ -40,7 +40,7 @@ export class AppComponent {
     }
     logAttendanceAction()
     {
-        if(confirm("Are you sure to " + this.logAction)) {
+        if(confirm("Are you sure to " + this.logAction.action)) {
         if(this.currentUser.isEmployee)
         {
            debugger;
