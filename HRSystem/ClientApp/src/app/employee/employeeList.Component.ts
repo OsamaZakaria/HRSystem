@@ -50,7 +50,10 @@ pageChangehandler(pagingData: PageEvent) {
     this.refreshEmployees();
 }
 
-
+onSearchChange(searchValue: string): void {  
+  this.searchTerm = searchValue;
+  this.refreshEmployees()
+}
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
