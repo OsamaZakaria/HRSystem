@@ -12,6 +12,11 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header> Total Working Hours </mat-header-cell>
         <mat-cell *matCellDef="let employe"> {{employe.totalWorkingHours.hours}}:{{employe.totalWorkingHours.minutes}}:{{employe.totalWorkingHours.seconds}} </mat-cell>
       </ng-container>
+
+      <ng-container matColumnDef="logDetails">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Log Details </mat-header-cell>
+        <mat-cell *matCellDef="let employe"> <a  (click)="openDialog(employe.logDetails)">View Log</a> </mat-cell>
+      </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns">
     </mat-header-row>
     <mat-row *matRowDef="let employe; columns: displayedColumns;"  [ngClass]="{'make-hasViolation': employe.hasViolation }">

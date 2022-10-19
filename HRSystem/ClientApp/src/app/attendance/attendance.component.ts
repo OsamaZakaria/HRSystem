@@ -1,8 +1,10 @@
 import {Component, Injector, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource, PageEvent, Sort} from '@angular/material';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource, PageEvent, Sort} from '@angular/material';
 import { SimpleDataSource } from '@app/_helpers/SimpleDataSource';
+import { AttendanceList } from '@app/_models/attendanceList';
 import { AttendanceService } from '@app/_services/attendance.service';
 import { EmployeeService } from '@app/_services/employee.service';
+import { EmployeeAttendenceDetailsDaialog } from './employee-attendence-details-daialog';
 
 
 /**
@@ -21,7 +23,7 @@ export class AttendanceComponent implements OnInit {
     public pageSize = 5;
     public pageSizeOptions = [5, 10, 25, 100];
 
-  displayedColumns = ['employeeName', 'logDate','totalWorkingHours'];
+  displayedColumns = ['employeeName', 'logDate','totalWorkingHours', 'logDetails'];
 
          
   public attendanceDataSource: SimpleDataSource | null;
@@ -30,7 +32,7 @@ export class AttendanceComponent implements OnInit {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  constructor(injector: Injector, private attendanceService: AttendanceService) {
+  constructor(injector: Injector, private attendanceService: AttendanceService,private dialog: MatDialog) {
 
   }
   ngOnInit(): void {
@@ -51,7 +53,16 @@ pageChangehandler(pagingData: PageEvent) {
     this.refreshAttendance();
 }
 
+openDialog(_data:AttendanceList): void {
+  const dialogRef = this.dialog.open(EmployeeAttendenceDetailsDaialog, {
+    width: '450px',
+    data: _data
+  });
 
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+  });
+}
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches

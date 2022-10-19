@@ -14,11 +14,12 @@ import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { EmployeeListComponent } from './employee/employeeList.Component';
 import { MatFormFieldModule, MatInputModule, MatTableModule, MatPaginatorModule,
-     MatButtonModule,MatIconModule, MatSnackBarModule, 
+     MatButtonModule,MatIconModule, MatSnackBarModule, MatDialogModule,
      MatDatepickerModule, MatNativeDateModule, MatOptionModule ,MatSelectModule } from '@angular/material';
 import { AddEmployeeComponent } from './employee/add-employee.Component';
 import { EditEmployeeComponent } from './employee/edit-employee.component';
 import { AttendanceComponent } from './attendance/attendance.component';
+import { EmployeeAttendenceDetailsDaialog } from './attendance/employee-attendence-details-daialog';
 
 @NgModule({
     imports: [
@@ -38,13 +39,15 @@ import { AttendanceComponent } from './attendance/attendance.component';
         MatDatepickerModule,
         MatNativeDateModule,
         MatOptionModule,
-        MatSelectModule 
+        MatSelectModule,
+        MatDialogModule
     ],
     declarations: [
         AppComponent,
         HomeComponent,
         LoginComponent,
-        EmployeeListComponent,AddEmployeeComponent,EditEmployeeComponent,AttendanceComponent
+        EmployeeListComponent,AddEmployeeComponent,EditEmployeeComponent,AttendanceComponent,
+        EmployeeAttendenceDetailsDaialog
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
@@ -52,6 +55,7 @@ import { AttendanceComponent } from './attendance/attendance.component';
 
 
     ],
+    entryComponents:[EmployeeAttendenceDetailsDaialog],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>Attendence details</h1>
+<div mat-dialog-content>
+   <table class="table attendance-sheet">
+    <thead>
+        <tr>
+        <td>
+            Check-In
+        </td>
+        <td>Check-Out</td>
+        </tr>
+      </thead>
+       <tbody>
+          <tr *ngFor="let item of data;">
+            <td><span>{{item.timeIn?.hours}}:{{item.timeIn?.minutes}}:{{item.timeIn?.seconds}}</span></td>
+            <td><span *ngIf="item.timeTimeOut">{{item.timeTimeOut?.hours}}:{{item.timeTimeOut?.minutes}}:{{item.timeTimeOut?.seconds}}</span></td>
+          </tr>
+       </tbody>
+   </table>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
+</div>

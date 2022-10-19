@@ -1,7 +1,9 @@
 import {Component, Injector, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource, PageEvent, Sort} from '@angular/material';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource, PageEvent, Sort} from '@angular/material';
 import { SimpleDataSource } from '@app/_helpers/SimpleDataSource';
+import { AttendanceList } from '@app/_models/attendanceList';
 import { EmployeeService } from '@app/_services/employee.service';
+
 
 
 /**
@@ -19,7 +21,7 @@ export class EmployeeListComponent implements OnInit {
     public totalCount = 0;
     public pageSize = 5;
     public pageSizeOptions = [5, 10, 25, 100];
-
+  attendenceDetails:any;
   displayedColumns = ['managerName', 'email','team'];
   nestedDisplayedColumns = ['employeeName', 'email'];
 
